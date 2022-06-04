@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseDelete= require("mongoose-delete")
 
 const userScheme = new mongoose.Schema(
   {
@@ -12,7 +13,7 @@ const userScheme = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    pasword: {
+    password: {
       type: String,
     },
     role: {

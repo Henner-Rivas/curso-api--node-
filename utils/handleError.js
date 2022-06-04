@@ -1,6 +1,7 @@
-const handleHttpError = (res, mensage = "algo sucedio", code = 403) => {
+const handleHttpError = (res, message = "algo sucedio", code = 403) => {
+  console.log("Error", message);
   res.status(code);
-  res.status({ err: mensage });
+  res.send({ error: message });
 };
 
 module.exports = { handleHttpError };
