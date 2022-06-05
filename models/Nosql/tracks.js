@@ -46,6 +46,47 @@ timestamps:true, // todo createdat, updateAt
   versionKey:false
 }
 );
+/* implentar metodo propio con relacion a storage */
+trackScheme.statics.findAllData = function() {
+ const joinData= this.aggregate([
+   {
+     $lookup:{
+       from:"storages",
+       localField:"mediaId",
+       foreignField:"_id",
+      as:"audio"
+     },
+   },
+   {
+     $unwind:"$audio"
+   }
+ ])
+ 
+  return joinData
+}
+
+trackScheme.statics.findOneData = function(id) {
+  const joinData= this.aggregate([
+    {
+      $lookup:{
+        from:"storages",
+        localField:"mediaId",
+        foreignField:"_id",
+       as:"audio"
+      },
+    },
+    {
+      $unwind:"$audio"
+    },
+    {$match:{
+      _id:mongoose.Types.ObjectId(id)
+    }}
+  ])
+  
+   return joinData
+ }
+
+
 trackScheme.plugin(mongooseDelete,{overrideMethods:"all"})
 
 module.exports= mongoose.model("tracks",trackScheme)

@@ -11,7 +11,7 @@ next()
         
     } catch (err) {
         res.status(403)
-        res.send({error:"ALGO_OCURRIO_EN_EL_CUSTON"})
+        res.send({error:"ALGO_OCURRIO_EN_EL_CUSTON_"})
     }
   
 }

@@ -10,6 +10,8 @@ const { handleHttpError } = require('../utils/handleError')
             req= matchedData(req);
             const passwordHash=await encrypt(req.password)
             const body= {...req,password:passwordHash}
+            
+            console.log("🚀 ~ file: auth.js ~ line 14 ~ registerCtrl ~ body", body)
             const dataUser= await usersModel.create(body)
             
             const data= {
@@ -29,19 +31,21 @@ const { handleHttpError } = require('../utils/handleError')
 
     const loginCtrl = async (req, res) => {
         try {
-            req= matchedData(req);
-            const user= await usersModel.findOne({email:req.email})
-            console.log("🚀 ~ file: auth.js ~ line 34 ~ loginCtrl ~ user", user)
+            const body= matchedData(req);
+            const user= await usersModel.findOne( {where:{email: body.email} });
+            console.log("🚀 ~ file: auth.js ~ line 44 ~ loginCtrl ~ check", body.email)
             if(!user){
                 handleHttpError(res,"USER NOT EXISTS", 404)
-           return
+                return
             }
-             const hashpassword= user.password;
-            const check =await compare(req.password, hashpassword)
+            
+            const check = await compare(body.password, user.password);
+            console.log("🚀 ~ file: auth.js ~ line 43 ~ loginCtrl ~ check", check)
+
              
-            if(!check){
+         /*    if(!check){
                 handleHttpError(res,"PASSWORD INVALID",401)
-            }
+            } */
             user.set('password',undefined,{strict:false})
             user.set('age',undefined,{strict:false})
 

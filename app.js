@@ -1,8 +1,12 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const dbConnect = require('./config/mongoose')
+const dbConnectNodsql = require('./config/mongoose')
+const {dbConnectMySQL} = require('./config/mysql')
+
 const app= express()
+const ENGINE_DB= process.env.ENGINE_DB;
+
 
 app.use(cors())
 
@@ -17,4 +21,6 @@ app.listen(port,()=>{
     console.log("app running for port"+ port)
 })
 
-dbConnect()
+
+
+ENGINE_DB === "nosql" ? dbConnectNodsql() : dbConnectMySQL() ;

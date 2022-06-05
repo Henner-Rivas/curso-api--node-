@@ -47,6 +47,7 @@ const createItem=async (req,res)=>{
         res.send({data})
         
     } catch (error) {
+        console.log(error)
         handleHttpError(res,"EORRR_create_ITEMS")
 
     }

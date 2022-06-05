@@ -11,7 +11,7 @@ const router= express.Router()
 
 router.get("/",authMiddleware,  getItems)
 router.get("/:id", validatorGetItem, getItem)
-router.post("/",authMiddleware,checkRol(['admin']) ,validatorCreateItem  , createItem)
+router.post("/",authMiddleware,checkRol(['admin, user']) ,validatorCreateItem  , createItem)
 
 router.put("/:id",validatorGetItem, validatorCreateItem  , createItem)
 router.delete("/:id", validatorGetItem, deleteItem)

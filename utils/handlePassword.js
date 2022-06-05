@@ -1,14 +1,14 @@
-const bcrypyjs= require('bcryptjs')
+const bcrypt = require("bcryptjs");
 
 /* encriptando contraseña */
 const encrypt=async(passwordPain)=>{
- const hash= await bcrypyjs.hash(passwordPain,10)
+ const hash= await bcrypt.hash(passwordPain,10)
  return hash
 }
 
 /* compra contraseña incriptada y sin incriptar */
-const compare= async(passwordPain, hashPassword)=>{
-  return await bcrypyjs.compare(passwordPain,hashPassword)
+const compare= async(passwordPlain, hashPassword)=>{
+  return await bcrypt.compare(passwordPlain, hashPassword);
 }
 
 module.exports={encrypt,compare}
